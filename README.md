@@ -1,70 +1,70 @@
-# GitHub Codespaces ♥️ React
+# Building a Local MP3 Player from a React Codespaces Template
 
-Welcome to your shiny new Codespace running React! We've got everything fired up and running for you to explore React.
+**Repo:** [aryali06/codespaces-react](https://github.com/aryali06/codespaces-react/tree/main)
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+## Overview
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+This project started as GitHub's default `codespaces-react` template — a bare-bones
+Create React App scaffold meant to demonstrate spinning up a dev environment inside
+a Codespace. I took that starting point and built it out into a fully functional,
+browser-based MP3 player that runs entirely client-side: no backend, no uploads,
+no accounts. Everything happens locally in the browser.
 
-This project was bootstrapped for you with [Vite](https://vitejs.dev/).
+## Why This Template
 
-## Available Scripts
+Codespaces gave me a zero-setup dev environment (no local Node/npm install
+headaches, no dependency drift between machines), and the React template was a
+clean, unopinionated base — just enough boilerplate to get `npm start` running
+without any pre-baked UI to rip out first.
 
-In the project directory, you can run:
+## Features Built On Top
 
-### `npm start`
+- **Local file/folder import** — users can select individual audio files or an
+  entire folder, and the app builds a playlist from whatever it finds
+- **Playback controls** — play, pause, forward (skip to next track), and
+  backward (skip to previous track)
+- **Now-playing visual** — a dancing cat GIF (or custom cover image) displayed
+  alongside the current track, giving the player some personality instead of a
+  blank UI
+- **Playlist state management** — React state/hooks track the current track
+  index, playback status, and the imported file list
 
-We've already run this for you in the `Codespaces: server` terminal window below. If you need to stop the server for any reason you can just run `npm start` again to bring it back online.
+## Rough Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000/](http://localhost:3000/) in the built-in Simple Browser (`Cmd/Ctrl + Shift + P > Simple Browser: Show`) to view your running application.
+- **React** for component structure and UI state (player controls, track list,
+  now-playing display)
+- **Browser file input** (folder-aware selection) to let users pick local audio
+  without any server-side storage
+- **HTML5 audio playback** underneath the custom UI, wired up to the
+  play/pause/skip controls
+- **Static assets** (the dancing cat GIF / cover art) rendered conditionally
+  based on playback state
 
-The page will reload automatically when you make changes.\
-You may also see any lint errors in the console.
+## Security & Privacy Notes
 
-### `npm test`
+Since everything runs client-side, imported audio files never leave the
+browser — there's no upload step, no server storing file contents, and no
+network request tied to the files themselves. That was a deliberate design
+choice: keeping the trust boundary entirely local avoids the usual risks that
+come with handling user-uploaded media (server-side storage of arbitrary
+files, unvalidated file type handling on a backend, etc.). The main things
+worth being careful about in a project like this:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Validating/whitelisting file types before attempting playback, so the app
+  doesn't choke on (or try to render) unexpected file formats
+- Being mindful of how object URLs created from local files are revoked once
+  a track is no longer in use, to avoid memory leaks
+- Not assuming folder-import APIs behave identically across browsers — feature
+  support and permission prompts vary
 
-### `npm run build`
+## What I'd Add Next
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Shuffle/repeat modes
+- Drag-and-drop file import
+- Persisting the last playlist across sessions
+- A proper waveform or progress scrubber instead of a static play state
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Try It!!!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-You can learn more in the [Vite documentation](https://vitejs.dev/guide/).
-
-To learn Vitest, a Vite-native testing framework, go to [Vitest documentation](https://vitest.dev/guide/)
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://sambitsahoo.com/blog/vite-code-splitting-that-works.html](https://sambitsahoo.com/blog/vite-code-splitting-that-works.html)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf)
-
-### Advanced Configuration
-
-This section has moved here: [https://vitejs.dev/guide/build.html#advanced-base-options](https://vitejs.dev/guide/build.html#advanced-base-options)
-
-### Deployment
-
-This section has moved here: [https://vitejs.dev/guide/build.html](https://vitejs.dev/guide/build.html)
-
-### Troubleshooting
-
-This section has moved here: [https://vitejs.dev/guide/troubleshooting.html](https://vitejs.dev/guide/troubleshooting.html)
+Clone the repo, run `npm install` then `npm start`, and drop in a folder of
+MP3s to test it out.
