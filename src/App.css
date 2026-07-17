@@ -1,31 +1,152 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
+  font-family: 'JetBrains Mono', monospace;
   min-height: 100vh;
+  background: linear-gradient(180deg, #ff8fff 0%, #7a1575 50%);
+  color: #f7f9ff;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
-.App-link {
-  color: #61dafb;
+.player-card {
+  width: min(95vw, 720px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 1.75rem;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.18);
 }
 
-.heart {
-  color: #ff0000;
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.small {
-  font-size: 0.75rem;
+.player-header h1 {
+  margin: 0 0 0.25rem;
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+}
+
+.player-header p {
+  margin: 0;
+  color: #ffdcfd;
+}
+
+.file-input {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff7ff;
+  cursor: pointer;
+}
+
+.player-main {
+  margin-top: 1.75rem;
+}
+
+.now-playing {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.now-playing h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.now-playing p {
+  margin: 0;
+  color: #ffd3fd;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+
+.controls button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.4rem;
+  font-size: 1rem;
+  background: #f49fff;
+  color: #4b005a;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.controls button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.controls button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.playlist {
+  margin-top: 0.5rem;
+}
+
+.playlist h3 {
+  margin: 0 0 0.75rem;
+}
+
+.playlist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.track {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 1rem;
+  padding: 0.95rem 1rem;
+  color: #fff7ff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.track:hover,
+.track.active {
+  background: rgba(240, 155, 243, 0.18);
+}
+
+.empty-list {
+  margin: 0;
+  color: #ffb8fb;
+}
+
+@media (max-width: 500px) {
+  .player-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .file-input {
+    width: 100%;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
 }
