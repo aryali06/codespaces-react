@@ -11,7 +11,7 @@
 }
 
 .player-card {
-  width: min(95vw, 720px);
+  width: clamp(80%, 90vw, 1000px);
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
@@ -19,10 +19,22 @@
   box-shadow: 0 28px 60px rgba(0, 0, 0, 0.18);
 }
 
+.player-cover {
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.player-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .player-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   flex-wrap: wrap;
 }
@@ -35,26 +47,103 @@
 .player-header p {
   margin: 0;
   color: #ffdcfd;
+  max-width: 42rem;
 }
 
-.file-input {
+.inputs-grid {
+  display: grid;
+  gap: 0.75rem;
+  width: min(100%, 260px);
+}
+
+.file-input-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
   padding: 0.75rem 1rem;
   background: rgba(255, 255, 255, 0.06);
   color: #fff7ff;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.file-input-button input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.cover-actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.secondary-button,
+.controls button,
+.remove-button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.25rem;
+  font-size: 1rem;
+  background: #f49fff;
+  color: #4b005a;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.secondary-button:hover,
+.controls button:hover:not(:disabled),
+.remove-button:hover {
+  transform: translateY(-1px);
+}
+
+.secondary-button:disabled,
+.controls button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cover-note {
+  margin: 0;
+  color: #ffd3fd;
 }
 
 .player-main {
   margin-top: 1.75rem;
 }
 
+.player-body {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.1fr) minmax(280px, 0.9fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.playlist-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .now-playing {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
   padding: 1rem 1.25rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
 .now-playing h2 {
@@ -75,26 +164,6 @@
   margin-bottom: 1.75rem;
 }
 
-.controls button {
-  border: none;
-  border-radius: 999px;
-  padding: 0.85rem 1.4rem;
-  font-size: 1rem;
-  background: #f49fff;
-  color: #4b005a;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.controls button:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
-
-.controls button:hover:not(:disabled) {
-  transform: translateY(-1px);
-}
-
 .playlist {
   margin-top: 0.5rem;
 }
@@ -109,6 +178,13 @@
   padding: 0;
   display: grid;
   gap: 0.75rem;
+}
+
+.playlist li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
 }
 
 .track {
@@ -131,21 +207,27 @@
   background: rgba(240, 155, 243, 0.18);
 }
 
+.remove-button {
+  min-width: 90px;
+}
+
 .empty-list {
   margin: 0;
   color: #ffb8fb;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 700px) {
   .player-header {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .file-input {
+  .inputs-grid {
     width: 100%;
   }
+}
 
+@media (max-width: 500px) {
   .controls {
     flex-direction: column;
   }
